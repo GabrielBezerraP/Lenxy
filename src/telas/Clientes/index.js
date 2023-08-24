@@ -1,16 +1,64 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './estilo.css';
-import { Container } from '@mui/material';
+import ReactDOM from 'react-dom';
+import { Container, Card } from '@mui/material';
+import { BrowserRouter as Router, Route, Routes, BrowserRouter } from 'react-router-dom';
+import Box from '@mui/material/Box';
+import CssBaseline from '@mui/material/CssBaseline';
+import { AppBar, Toolbar, IconButton, Typography, Button } from '@mui/material';
+import Text from 'react'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import Grid from '@mui/material/Grid';
+
+import Header from './Componentes/Header/index'
+import Cards from './Componentes/Cards/index'
+
+
+
 
 function Clientes() {
   return (
-    <div>
-      <h1>Página Inicial</h1>
+    <React.Fragment sx={{height: '100vh', width: '100vw'}}>
+      <Header/>
+      <Container sx={{height: '200px'}}/>
       
-    </div>
-      );
-    }
+        <Grid container spacing={1}>
+          
+            <Cards/>
+            <Cards/>
+            <Cards/>
+            <Cards/>
+            <Cards/>
+            <Cards/>
+            <Cards/>
+            <Cards/>
+            <Cards/>
+            <Cards/>
+            <Cards/>
+            <Cards/>
+            <Cards/>
+            <Cards/>
+            <Cards/>
+            <Cards/>
+            <Cards/>
+            <Cards/>
+            <Cards/>
+            <Cards/>
+            <Cards/>
+            <Cards/>
+            <Cards/>
+            <Cards/>
+            
+
+        </Grid>
+
+
+
+    </React.Fragment>
+
+  );
+}
 
 export default Clientes;
 

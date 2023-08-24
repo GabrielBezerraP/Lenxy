@@ -24,8 +24,7 @@ import TodayIcon from '@mui/icons-material/Today';
 import PaymentsIcon from '@mui/icons-material/Payments';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
-import TelaClientes from '../../telas/Clientes';
-import { BrowserRouter as Router, Route, Link, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, BrowserRouter, Link, useNavigate } from 'react-router-dom';
 
 
 const drawerWidth = 250;
@@ -107,22 +106,21 @@ export default function MiniDrawer() {
     setOpen(false);
   };
 
-  //const navigate = useNavigate(); problema esta aqui
-
+  const navigate = useNavigate(); //problema esta aqui
 
   const handleGoPage = (text) => {
-    
-    if(text == 'Clientes'){
-      
+
+    if (text == 'Clientes') {
+      navigate('/Clientes')
       console.log('text')
     }
   };
 
 
   return (
-    <Box sx={{ display: 'flex'}}>
+    <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open} style={{alignItems: 'baseline'}}>
+      <AppBar position="fixed" open={open} style={{ alignItems: 'baseline' }}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -145,39 +143,53 @@ export default function MiniDrawer() {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Orçamentos', 'Clientes', 'Agenda', 'Custos', 'Precificação', 'Vendas'].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}
-            onClick={() => handleGoPage(text)}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                    color: 'inherit'
-                  }}
-                >
-                  {index == 0 ? <CurrencyExchangeIcon/>  
-                 : index == 1 ? <AccountCircleIcon /> 
-                 : index == 2 ? <TodayIcon /> 
-                 : index == 3 ? <PaymentsIcon /> 
-                 : index == 4 ? <LocalOfferIcon /> 
-                 : index == 5 ? <TrendingUpIcon /> 
-                 : <MailIcon /> 
-                }
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
+          <ListItem disablePadding sx={{ display: 'block' }} onClick={() => handleGoPage()}>
+            <ListItemButton  to="/Clientes" sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }}>
+              <ListItemIcon sx={{ minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center', color: 'Black' }}>
+                <AccountCircleIcon />
+              </ListItemIcon>
+              <ListItemText primary={'Clientes'} sx={{ color: 'Black', opacity: open ? 1 : 0 }} />
+            </ListItemButton>
+
+            <ListItemButton to="/Orcamentos" sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }}>
+              <ListItemIcon sx={{ minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center', color: 'Black' }}>
+                <CurrencyExchangeIcon />
+              </ListItemIcon>
+              <ListItemText primary={'Orçamento'} sx={{color: 'Black', opacity: open ? 1 : 0 }} />
+            </ListItemButton>
+
+            <ListItemButton to="/Agendas" sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }}>
+              <ListItemIcon sx={{ minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center', color: 'Black' }}>
+                <TodayIcon />
+              </ListItemIcon>
+              <ListItemText primary={'Agenda'} sx={{color: 'Black', opacity: open ? 1 : 0 }} />
+            </ListItemButton>
+
+            <ListItemButton to="/Custos" sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }}>
+              <ListItemIcon  sx={{ minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center', color: 'Black' }}>
+                <PaymentsIcon />
+              </ListItemIcon>
+              <ListItemText primary={'Custos'} sx={{color: 'Black', opacity: open ? 1 : 0 }} />
+            </ListItemButton>
+
+            <ListItemButton to="/Precificacao" sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }}>
+              <ListItemIcon sx={{ minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center', color: 'Black' }}>
+                <LocalOfferIcon />
+              </ListItemIcon>
+              <ListItemText primary={'Precificação'} sx={{color: 'Black', opacity: open ? 1 : 0 }} />
+            </ListItemButton>
+              
+            <ListItemButton to="/Vendas" sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }}>
+              <ListItemIcon  sx={{ minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center', color: 'Black' }}>
+                <TrendingUpIcon />
+              </ListItemIcon>
+              <ListItemText primary={'Vendas'} sx={{color: 'Black', opacity: open ? 1 : 0 }} />
+            </ListItemButton>
+          </ListItem>
+
         </List>
       </Drawer>
+
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
       </Box>
