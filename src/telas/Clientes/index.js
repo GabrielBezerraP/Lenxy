@@ -24,7 +24,7 @@ function Clientes() {
   const [ listClientes, setlistClientes] = useState();
   const getClientes = async () => {
     await Axios.get("https://localhost:7103/api/customer").then((response) => {
-      setlistClientes(response.data)
+      setlistClientes(response.data.listData)
     })
 
   };
@@ -44,9 +44,6 @@ function Clientes() {
             return Cards(value);
         })}
         </Grid>
-
-
-
     </React.Fragment>
 
   );
