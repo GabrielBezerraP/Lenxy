@@ -6,7 +6,7 @@ import Fade from '@mui/material/Fade';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
-import { AppBar, Toolbar, IconButton, TextField, MenuItem } from '@mui/material';
+import { AppBar, Toolbar, IconButton, TextField, MenuItem, Container } from '@mui/material';
 import { Text, useState } from 'react'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
@@ -24,22 +24,14 @@ const style = {
   p: 4,
 };
 
-const tiposEnsaios = [
+const tiposClientes = [
   {
-    value: 'gestante',
-    label: 'Gestantes',
+    value: 'CPF',
+    label: 'CPF',
   },
   {
-    value: 'newborn',
-    label: 'NewBorn',
-  },
-  {
-    value: 'edicao',
-    label: 'Edição',
-  },
-  {
-    value: 'Evento',
-    label: 'Evento',
+    value: 'CNPJ',
+    label: 'CNPJ',
   },
 ];
 
@@ -53,11 +45,20 @@ const styleBox = {
   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
+  borderRadius: 3,
+  width: '150',
 };
 
 const styleModal = {
   marginLeft: '40px',
-  width: '100',
+  width: '250px',
+  margin: '10px',
+  borderRadius: 5
+};
+
+const styleDropDown = {
+  marginLeft: '40px',
+  width: '100px',
   margin: '10px',
   borderRadius: 5
 };
@@ -76,7 +77,7 @@ export default function TransitionsModal() {
 
   return (
     <div>
-      <Modal sx={{borderRadius: '10%'}}
+      <Modal sx={{ borderRadius: '10%' }}
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         open={open}
@@ -91,32 +92,40 @@ export default function TransitionsModal() {
       >
         <Fade in={open}>
           <Box sx={styleBox}>
+            <Container sx={{flexDirection: 'row', display: 'flex', justifyContent: 'center' }}>
             <TextField sx={styleModal}
               id="outlined-multiline-flexible"
               label="Nome"
-
               multiline
               maxRows={4}
             />
+            <TextField sx={styleModal}
+              id="outlined-multiline-flexible"
+              label="Sobrenome"
+              multiline
+              maxRows={4}
+            />
+            <TextField sx={styleDropDown}
+              id="outlined-select-currency"
+              select
+              label="Tipo"
+              defaultValue="CPF"
+            >
+              {tiposClientes.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
+            </Container>
+            <Container sx={{flexDirection: 'row', display: 'flex', justifyContent: 'center' }}>
+
             <TextField sx={styleModal}
               id="outlined-multiline-flexible"
               label="Endereço"
               multiline
               maxRows={4}
             />
-            <TextField sx={styleModal}
-              id="outlined-select-currency"
-              select
-              label="Tipo Ensaio"
-              defaultValue="Gestantes"
-              helperText="Selecione uma opção"
-            >
-              {tiposEnsaios.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
 
             <TextField sx={styleModal}
               id="outlined-multiline-flexible"
@@ -124,6 +133,19 @@ export default function TransitionsModal() {
               multiline
               maxRows={4}
             />
+            <TextField sx={styleModal}
+              id="outlined-multiline-flexible"
+              label="Telefone"
+              multiline
+              maxRows={4}
+            />
+
+            </Container>
+
+
+            
+            
+
 
             <IconButton sx={{ borderRadius: '50px' }} onClick={(handleOpen)} color="inherit" aria-label="back">
               <Typography sx={{ padding: '10px' }} variant="h6">Salvar</Typography>

@@ -13,7 +13,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 function Header() {
   return (
     <React.Fragment>
-    <AppBar sx={{ position: "static", justifyContent: 'space-between', alignItems: 'left', flexDirection: 'row' }}>
+    <AppBar sx={{ position: "static", justifyContent: 'space-between', alignItems: 'left'}}>
       <IconButton sx={{ borderRadius: '50px' }} component={Link} to="/" color="inherit" aria-label="back">
         <ArrowBackIcon />
         <Typography sx={{ padding: '10px' }} variant="h6">Clientes</Typography>

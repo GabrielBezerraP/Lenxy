@@ -7,29 +7,25 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 import { lightBlue } from '@mui/material/colors';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { IconButton } from '@mui/material';
 
-export default function Cards() {
+export default function Cards(props) {
   return (
     <Card sx={{ width: 350, boxShadow: '-moz-initial' ,  backgroundColor:'lightBlue', margin:'25px',marginLeft: '100px' }}>
       <CardActionArea>
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          Nome Cliente
+            {props.firstName + " " + props.lastName}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Endereço cliente
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Data Ultimo ensaio
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Tipo de ensaio
+        <Typography gutterBottom variant="h6" component="div">
+            {props.email}
         </Typography>
       </CardContent>
-      <CardActions>
-        <Button size="small">Delete</Button>
-      </CardActions>
       </CardActionArea>
+      <IconButton sx={{ borderRadius: '50px' }} to="/" color="inherit" aria-label="back">
+          <DeleteIcon/>
+      </IconButton>
     </Card>
   );
 }

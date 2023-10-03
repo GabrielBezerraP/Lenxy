@@ -10,47 +10,39 @@ import Text from 'react'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Grid from '@mui/material/Grid';
-
+import {useState, useEffect} from 'react'
+import Axios  from 'axios';
 import Header from './Componentes/Header/index'
 import Cards from './Componentes/Cards/index'
+import cors from 'cors'
 
 
 
 
 function Clientes() {
+  const [values, setValues] = useState();
+  const [ listClientes, setlistClientes] = useState();
+  const getClientes = async () => {
+    await Axios.get("https://localhost:7103/api/customer").then((response) => {
+      setlistClientes(response.data)
+    })
+
+  };
+
+
+   useEffect(() => {
+    getClientes();
+  }, []);
+
   return (
     <React.Fragment sx={{height: '100vh', width: '100vw'}}>
       <Header/>
       <Container sx={{height: '200px'}}/>
       
         <Grid container spacing={1}>
-          
-            <Cards/>
-            <Cards/>
-            <Cards/>
-            <Cards/>
-            <Cards/>
-            <Cards/>
-            <Cards/>
-            <Cards/>
-            <Cards/>
-            <Cards/>
-            <Cards/>
-            <Cards/>
-            <Cards/>
-            <Cards/>
-            <Cards/>
-            <Cards/>
-            <Cards/>
-            <Cards/>
-            <Cards/>
-            <Cards/>
-            <Cards/>
-            <Cards/>
-            <Cards/>
-            <Cards/>
-            
-
+        {typeof listClientes !== 'undefined' && listClientes.map((value)=> {
+            return Cards(value);
+        })}
         </Grid>
 
 
