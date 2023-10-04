@@ -11,6 +11,7 @@ import { Text, useState } from 'react'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import SaveIcon from '@mui/icons-material/Save';
+import Axios  from 'axios';
 
 const style = {
   position: 'absolute',
@@ -70,10 +71,46 @@ const styleModalMae = {
   borderRadius: 5
 };
 
-export default function TransitionsModal() {
+export default function TransitionsModal(props) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  
+  const [editValues, setEditValues] = useState({
+    id: props.id,
+    nome: props.name,
+    sobrenome: props.sobrenome,
+    telefone: props.phone[0].phoneNumber
+});
+
+const handleEditUsuario = () => {
+      
+  Axios.put("https://localhost:7103/api/customer", {
+      id: editValues.id,
+      firstName: editValues.name,
+      email: editValues.email,
+      documentNumber: "string",
+      documentType: "string",
+      status: true,
+      birthDay: "2023-10-04T01:30:53.856Z",
+      phone: [
+        {
+          id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+          phoneNumber: "string"
+        }
+      ],
+      address: {
+          id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+          zipCode: "string",
+          state: "SP",
+          city: "string",
+          street: "string",
+          number: "string"
+          } 
+    });
+    handleClose();
+}
 
   return (
     <div>
@@ -141,11 +178,6 @@ export default function TransitionsModal() {
             />
 
             </Container>
-
-
-            
-            
-
 
             <IconButton sx={{ borderRadius: '50px' }} onClick={(handleOpen)} color="inherit" aria-label="back">
               <Typography sx={{ padding: '10px' }} variant="h6">Salvar</Typography>
