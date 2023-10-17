@@ -11,7 +11,7 @@ import { Text, useState } from 'react'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import SaveIcon from '@mui/icons-material/Save';
-import Axios  from 'axios';
+import Axios from 'axios';
 
 const style = {
   position: 'absolute',
@@ -71,46 +71,49 @@ const styleModalMae = {
   borderRadius: 5
 };
 
+
+
+
 export default function TransitionsModal(props) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  
-  const [editValues, setEditValues] = useState({
-    id: props.id,
-    nome: props.name,
-    sobrenome: props.sobrenome,
-    telefone: props.phone[0].phoneNumber
-});
+  const [values, setValues] = useState();
 
-const handleEditUsuario = () => {
-      
-  Axios.put("https://localhost:7103/api/customer", {
-      id: editValues.id,
-      firstName: editValues.name,
-      email: editValues.email,
+  const handleCLickButton = () => {
+    Axios.post("https://localhost:7103/api/customer", {
+      firstName: values.firstName,
+      lastName: values.lastName,
+      email: values.email,
       documentNumber: "string",
-      documentType: "string",
+      documentType: "CPF",
       status: true,
-      birthDay: "2023-10-04T01:30:53.856Z",
-      phone: [
-        {
-          id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-          phoneNumber: "string"
-        }
-      ],
+      birthDay: "2023-10-03T01:12:03.841",
+      phone: [{
+        phoneNumber: values.telefone
+      }],
       address: {
-          id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-          zipCode: "string",
-          state: "SP",
-          city: "string",
-          street: "string",
-          number: "string"
-          } 
+        zipcode: "string",
+        state: values.state,
+        city: "string",
+        street: "string",
+        number: "string"
+      }
+    }).then((response) => {
+      setOpen(false);
+      window.location.reload(true); // recarrega a page para atualizar a lista de clientes
+      console.log(response)
     });
-    handleClose();
-}
+  }
+
+  const handleChangeValues = (value) => {
+    setValues(prevValue => ({
+      ...prevValue,
+      [value.target.name]: value.target.value,
+
+    }))
+  }
 
   return (
     <div>
@@ -129,60 +132,73 @@ const handleEditUsuario = () => {
       >
         <Fade in={open}>
           <Box sx={styleBox}>
-            <Container sx={{flexDirection: 'row', display: 'flex', justifyContent: 'center' }}>
-            <TextField sx={styleModal}
-              id="outlined-multiline-flexible"
-              label="Nome"
-              multiline
-              maxRows={4}
-            />
-            <TextField sx={styleModal}
-              id="outlined-multiline-flexible"
-              label="Sobrenome"
-              multiline
-              maxRows={4}
-            />
-            <TextField sx={styleDropDown}
-              id="outlined-select-currency"
-              select
-              label="Tipo"
-              defaultValue="CPF"
-            >
-              {tiposClientes.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
+            <Container sx={{ flexDirection: 'row', display: 'flex', justifyContent: 'center' }}>
+              <TextField sx={styleModal}
+                id="outlined-multiline-flexible"
+                label="Nome"
+                name="firstName"
+                onChange={handleChangeValues}
+                multiline
+                maxRows={4}
+              />
+              <TextField sx={styleModal}
+                id="outlined-multiline-flexible"
+                name="lastName"
+                label="Sobrenome"
+                onChange={handleChangeValues}
+                multiline
+                maxRows={4}
+              />
+              <TextField sx={styleDropDown}
+                id="outlined-select-currency"
+                select
+                label="Tipo"
+                defaultValue="CPF"
+              >
+                {tiposClientes.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
             </Container>
-            <Container sx={{flexDirection: 'row', display: 'flex', justifyContent: 'center' }}>
+            <Container sx={{ flexDirection: 'row', display: 'flex', justifyContent: 'center' }}>
 
-            <TextField sx={styleModal}
-              id="outlined-multiline-flexible"
-              label="Endereço"
-              multiline
-              maxRows={4}
-            />
+              <TextField sx={styleModal}
+                id="outlined-multiline-flexible"
+                name="state"
+                label="Endereço"
+                onChange={handleChangeValues}
+                multiline
+                maxRows={4}
+              />
 
-            <TextField sx={styleModal}
-              id="outlined-multiline-flexible"
-              label="Email"
-              multiline
-              maxRows={4}
-            />
-            <TextField sx={styleModal}
-              id="outlined-multiline-flexible"
-              label="Telefone"
-              multiline
-              maxRows={4}
-            />
+              <TextField sx={styleModal}
+                id="outlined-multiline-flexible"
+                name='email'
+                label="Email"
+                onChange={handleChangeValues}
+                multiline
+                maxRows={4}
+              />
+              <TextField sx={styleModal}
+                id="outlined-multiline-flexible"
+                name='telefone'
+                label="Telefone"
+                onChange={handleChangeValues}
+                multiline
+                maxRows={4}
+              />
 
             </Container>
+            <Container sx={{ textAlign: 'right', justifyContent: 'right' }}>
+              <IconButton sx={{ borderRadius: '50px', alignItems: 'left' }} onClick={(handleOpen)} color="Black" aria-label="back">
+                <Button className='register--button' onClick={() => handleCLickButton()}>
+                  <Typography sx={{ padding: '10px', color: 'black', backgroundColor:'lightblue', borderRadius: '10px' }} variant="h6">Salvar</Typography>
+                </Button>
+              </IconButton>
+            </Container>
 
-            <IconButton sx={{ borderRadius: '50px' }} onClick={(handleOpen)} color="inherit" aria-label="back">
-              <Typography sx={{ padding: '10px' }} variant="h6">Salvar</Typography>
-              <SaveIcon />
-            </IconButton>
           </Box>
         </Fade>
       </Modal>
