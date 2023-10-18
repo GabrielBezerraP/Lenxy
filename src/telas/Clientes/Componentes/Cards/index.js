@@ -20,7 +20,7 @@ export default function Cards(props) {
 
   const deleteClientes = (props) => {
     
-    Axios.delete("https://localhost:7103/api/customer", props.id).then((response) => {
+    Axios.delete("https://localhost:7103/api/customer/"+ props.id).then((response) => {
       window.location.reload(true);
     })
   };
